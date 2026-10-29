@@ -1,0 +1,204 @@
+=== js-e1
+language: javascript
+difficulty: easy
+goal: Return the average of a non-empty array of numbers.
+bugLine: 3
+explanation: The loop runs one step past the end, adding undefined and producing NaN.
+fixed:   for (let i = 0; i < nums.length; i++) {
+--- code
+function average(nums) {
+  let sum = 0;
+  for (let i = 0; i <= nums.length; i++) {
+    sum += nums[i];
+  }
+  return sum / nums.length;
+}
+--- end
+=== js-e2
+language: javascript
+difficulty: easy
+goal: Uppercase the first letter of each space-separated word, leaving the rest unchanged.
+bugLine: 5
+explanation: slice(0) keeps the first letter too, so it appears twice.
+fixed:     result.push(w.charAt(0).toUpperCase() + w.slice(1));
+--- code
+function titleCase(str) {
+  const words = str.split(" ");
+  const result = [];
+  for (const w of words) {
+    result.push(w.charAt(0).toUpperCase() + w.slice(0));
+  }
+  return result.join(" ");
+}
+--- end
+=== js-e3
+language: javascript
+difficulty: easy
+goal: Count how many elements are strictly equal (===) to target.
+bugLine: 4
+explanation: Loose equality coerces types, so the string "1" is counted as equal to 1.
+fixed:     if (x === target) count++;
+--- code
+function countOf(arr, target) {
+  let count = 0;
+  for (const x of arr) {
+    if (x == target) count++;
+  }
+  return count;
+}
+--- end
+=== js-m1
+language: javascript
+difficulty: medium
+goal: Return the median of a non-empty array of numbers.
+bugLine: 2
+explanation: The default sort compares numbers as strings, so 10 sorts before 2.
+fixed:   const sorted = [...nums].sort((a, b) => a - b);
+--- code
+function median(nums) {
+  const sorted = [...nums].sort();
+  const mid = Math.floor(sorted.length / 2);
+  if (sorted.length % 2 === 0) {
+    return (sorted[mid - 1] + sorted[mid]) / 2;
+  }
+  return sorted[mid];
+}
+--- end
+=== js-m2
+language: javascript
+difficulty: medium
+goal: Group items into an object keyed by keyFn(item), keeping every item in input order.
+bugLine: 6
+explanation: Each item replaces its group instead of being appended, so only the last item survives.
+fixed:     groups[key].push(item);
+--- code
+function groupBy(items, keyFn) {
+  const groups = {};
+  for (const item of items) {
+    const key = keyFn(item);
+    if (!groups[key]) groups[key] = [];
+    groups[key] = [item];
+  }
+  return groups;
+}
+--- end
+=== js-m3
+language: javascript
+difficulty: medium
+goal: Sum the base-10 integer strings in an array, skipping entries that are not numbers.
+bugLine: 3
+explanation: map passes the index as parseInt's radix, so most entries parse as NaN.
+fixed:   const nums = strs.map((s) => parseInt(s, 10));
+--- code
+function sumNumericStrings(strs) {
+  let total = 0;
+  const nums = strs.map(parseInt);
+  for (const n of nums) {
+    if (!Number.isNaN(n)) total += n;
+  }
+  return total;
+}
+--- end
+=== js-h1
+language: javascript
+difficulty: hard
+goal: Return n functions where the k-th one returns k.
+bugLine: 3
+explanation: var creates one shared i for the whole loop, so every function returns n.
+fixed:   for (let i = 0; i < n; i++) {
+--- code
+function makeCounters(n) {
+  const counters = [];
+  for (var i = 0; i < n; i++) {
+    counters.push(() => i);
+  }
+  return counters;
+}
+--- end
+=== js-h2
+language: javascript
+difficulty: hard
+goal: Sum the prices of the given ids, where getPrice(id) returns a Promise of a number.
+bugLine: 2
+explanation: Without await, prices is a Promise rather than an array, so iterating it throws.
+fixed:   const prices = await Promise.all(ids.map((id) => getPrice(id)));
+--- code
+async function totalPrice(ids, getPrice) {
+  const prices = Promise.all(ids.map((id) => getPrice(id)));
+  let total = 0;
+  for (const p of prices) {
+    total += p;
+  }
+  return total;
+}
+--- end
+=== js-h3
+language: javascript
+difficulty: hard
+goal: Return the items with duplicate ids removed, keeping the first item for each id.
+bugLine: 6
+explanation: It stores the object instead of its id, so seen.has(item.id) is never true.
+fixed:     seen.add(item.id);
+--- code
+function uniqueById(items) {
+  const seen = new Set();
+  const result = [];
+  for (const item of items) {
+    if (seen.has(item.id)) continue;
+    seen.add(item);
+    result.push(item);
+  }
+  return result;
+}
+--- end
+=== js-x1
+language: javascript
+difficulty: expert
+goal: Rank players by descending score (ties keep input order), adding a 1-based rank to each.
+bugLine: 3
+explanation: A boolean comparator never returns a negative number, so sort cannot order the array reliably.
+fixed:   ranked.sort((a, b) => b.score - a.score);
+--- code
+function rankPlayers(players) {
+  const ranked = players.map((p) => ({ name: p.name, score: p.score }));
+  ranked.sort((a, b) => b.score > a.score);
+  for (let i = 0; i < ranked.length; i++) {
+    ranked[i].rank = i + 1;
+  }
+  return ranked;
+}
+--- end
+=== js-x2
+language: javascript
+difficulty: expert
+goal: Return the usernames that are 3 to 16 characters of lowercase letters, digits, or underscores.
+bugLine: 1
+explanation: The g flag makes test() remember lastIndex between calls, so valid names get rejected.
+fixed: const VALID = /^[a-z0-9_]{3,16}$/;
+--- code
+const VALID = /^[a-z0-9_]{3,16}$/g;
+function filterValid(names) {
+  const ok = [];
+  for (const name of names) {
+    if (VALID.test(name)) ok.push(name);
+  }
+  return ok;
+}
+--- end
+=== js-x3
+language: javascript
+difficulty: expert
+goal: Remove every occurrence of value from arr in place and return the same array.
+bugLine: 2
+explanation: Splicing while walking forward skips the element that shifts into index i.
+fixed:   for (let i = arr.length - 1; i >= 0; i--) {
+--- code
+function removeAll(arr, value) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === value) {
+      arr.splice(i, 1);
+    }
+  }
+  return arr;
+}
+--- end

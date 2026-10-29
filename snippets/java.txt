@@ -1,0 +1,215 @@
+=== java-e1
+language: java
+difficulty: easy
+goal: Return the sum of all elements in an int array.
+bugLine: 3
+explanation: The loop starts at index 1, so the first element is never added.
+fixed:     for (int i = 0; i < nums.length; i++) {
+--- code
+static int sumArray(int[] nums) {
+    int total = 0;
+    for (int i = 1; i < nums.length; i++) {
+        total += nums[i];
+    }
+    return total;
+}
+--- end
+=== java-e2
+language: java
+difficulty: easy
+goal: Return the largest value in a non-empty int array that may contain negatives.
+bugLine: 2
+explanation: Starting from 0 returns 0 for an all-negative array.
+fixed:     int best = nums[0];
+--- code
+static int maxOf(int[] nums) {
+    int best = 0;
+    for (int n : nums) {
+        if (n > best) {
+            best = n;
+        }
+    }
+    return best;
+}
+--- end
+=== java-e3
+language: java
+difficulty: easy
+goal: Count how many words have the same text as target.
+bugLine: 4
+explanation: == compares String references, not their contents.
+fixed:         if (w.equals(target)) {
+--- code
+static int countMatches(String[] words, String target) {
+    int count = 0;
+    for (String w : words) {
+        if (w == target) {
+            count++;
+        }
+    }
+    return count;
+}
+--- end
+=== java-m1
+language: java
+difficulty: medium
+goal: Return the exact average of a non-empty int array (the sum fits in an int).
+bugLine: 6
+explanation: Integer division drops the fraction before the result becomes a double.
+fixed:     return (double) sum / nums.length;
+--- code
+static double average(int[] nums) {
+    int sum = 0;
+    for (int n : nums) {
+        sum += n;
+    }
+    return sum / nums.length;
+}
+--- end
+=== java-m2
+language: java
+difficulty: medium
+goal: Reverse the order of the words in a string containing at least one word.
+bugLine: 4
+explanation: The loop stops before index 0, so the first word is dropped.
+fixed:     for (int i = parts.length - 1; i >= 0; i--) {
+--- code
+static String reverseWords(String s) {
+    String[] parts = s.trim().split("\\s+");
+    StringBuilder sb = new StringBuilder();
+    for (int i = parts.length - 1; i > 0; i--) {
+        sb.append(parts[i]);
+        if (i > 0) sb.append(" ");
+    }
+    return sb.toString();
+}
+--- end
+=== java-m3
+language: java
+difficulty: medium
+goal: Return true if two different positions in a sorted array sum to target.
+bugLine: 3
+explanation: Allowing lo == hi lets one element be paired with itself.
+fixed:     while (lo < hi) {
+--- code
+static boolean hasPairWithSum(int[] sorted, int target) {
+    int lo = 0, hi = sorted.length - 1;
+    while (lo <= hi) {
+        int s = sorted[lo] + sorted[hi];
+        if (s == target) return true;
+        if (s < target) lo++;
+        else hi--;
+    }
+    return false;
+}
+--- end
+=== java-h1
+language: java
+difficulty: hard
+goal: Return n! for 0 <= n <= 20.
+bugLine: 2
+explanation: An int overflows past 12!, even though the method returns a long.
+fixed:     long result = 1;
+--- code
+static long factorial(int n) {
+    int result = 1;
+    for (int i = 2; i <= n; i++) {
+        result *= i;
+    }
+    return result;
+}
+--- end
+=== java-h2
+language: java
+difficulty: hard
+goal: Shift each lowercase letter forward by k positions (0 <= k < 26), wrapping around; keep other characters.
+bugLine: 5
+explanation: char plus int is an int, so the character code number is appended instead of a letter.
+fixed:             sb.append((char) ('a' + (c - 'a' + k) % 26));
+--- code
+static String caesar(String s, int k) {
+    StringBuilder sb = new StringBuilder();
+    for (char c : s.toCharArray()) {
+        if (c >= 'a' && c <= 'z') {
+            sb.append('a' + (c - 'a' + k) % 26);
+        } else {
+            sb.append(c);
+        }
+    }
+    return sb.toString();
+}
+--- end
+=== java-h3
+language: java
+difficulty: hard
+goal: Return the most frequent letter in a non-empty lowercase string, picking the earliest letter on ties.
+bugLine: 8
+explanation: >= lets a later letter with an equal count replace the earlier one.
+fixed:         if (counts[i] > counts[best]) best = i;
+--- code
+static char mostFrequent(String s) {
+    int[] counts = new int[26];
+    for (char c : s.toCharArray()) {
+        counts[c - 'a']++;
+    }
+    int best = 0;
+    for (int i = 1; i < 26; i++) {
+        if (counts[i] >= counts[best]) best = i;
+    }
+    return (char) ('a' + best);
+}
+--- end
+=== java-x1
+language: java
+difficulty: expert
+goal: Return true if two maps with non-null values have exactly the same keys and values.
+bugLine: 6
+explanation: != on Integer compares references, which only match for cached values from -128 to 127.
+fixed:         if (!a.get(key).equals(b.get(key))) {
+--- code
+static boolean sameCounts(Map<String, Integer> a, Map<String, Integer> b) {
+    if (a.size() != b.size()) {
+        return false;
+    }
+    for (String key : a.keySet()) {
+        if (a.get(key) != b.get(key)) {
+            return false;
+        }
+    }
+    return true;
+}
+--- end
+=== java-x2
+language: java
+difficulty: expert
+goal: Return a copy of the list with every occurrence of value removed.
+bugLine: 4
+explanation: remove(int) removes by index, not by value.
+fixed:         copy.remove(Integer.valueOf(value));
+--- code
+static List<Integer> withoutValue(List<Integer> list, int value) {
+    List<Integer> copy = new ArrayList<>(list);
+    while (copy.contains(value)) {
+        copy.remove(value);
+    }
+    return copy;
+}
+--- end
+=== java-x3
+language: java
+difficulty: expert
+goal: Count keys per bucket using a non-negative bucket index derived from each key's hashCode.
+bugLine: 5
+explanation: Math.abs(Integer.MIN_VALUE) is still negative, so some keys get a negative index.
+fixed:         int idx = Math.floorMod(hash, buckets);
+--- code
+static int[] bucketSizes(String[] keys, int buckets) {
+    int[] sizes = new int[buckets];
+    for (String key : keys) {
+        int hash = key.hashCode();
+        int idx = Math.abs(hash) % buckets;
+        sizes[idx]++;
+    }
+    return sizes;
+}
+--- end

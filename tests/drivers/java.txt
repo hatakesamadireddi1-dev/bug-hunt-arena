@@ -1,0 +1,66 @@
+=== java-e1
+check("basic", sumArray(new int[]{1, 2, 3}) == 6);
+check("single", sumArray(new int[]{5}) == 5);
+check("empty", sumArray(new int[]{}) == 0);
+check("negatives", sumArray(new int[]{-1, 4}) == 3);
+=== java-e2
+check("positives", maxOf(new int[]{3, 9, 2}) == 9);
+check("all negative", maxOf(new int[]{-5, -2, -8}) == -2);
+check("single", maxOf(new int[]{-7}) == -7);
+=== java-e3
+String[] ws = {new String("cat"), new String("dog"), new String("cat")};
+check("distinct objects", countMatches(ws, new String("cat")) == 2);
+check("none", countMatches(ws, "bird") == 0);
+check("empty", countMatches(new String[]{}, "x") == 0);
+=== java-m1
+check("fraction", average(new int[]{1, 2}) == 1.5);
+check("whole", average(new int[]{2, 4, 6}) == 4.0);
+check("thirds", Math.abs(average(new int[]{1, 1, 2}) - 4.0 / 3) < 1e-9);
+check("negative", average(new int[]{-1, -2}) == -1.5);
+=== java-m2
+check("three", reverseWords("one two three").equals("three two one"));
+check("spaces", reverseWords("  hi   there ").equals("there hi"));
+check("single", reverseWords("solo").equals("solo"));
+=== java-m3
+check("self pair", !hasPairWithSum(new int[]{1, 5}, 2));
+check("found", hasPairWithSum(new int[]{1, 2, 4, 7}, 9));
+check("missing", !hasPairWithSum(new int[]{1, 2, 4, 7}, 4));
+check("dupes", hasPairWithSum(new int[]{3, 3}, 6));
+check("empty", !hasPairWithSum(new int[]{}, 0));
+=== java-h1
+check("zero", factorial(0) == 1L);
+check("five", factorial(5) == 120L);
+check("thirteen", factorial(13) == 6227020800L);
+check("twenty", factorial(20) == 2432902008176640000L);
+=== java-h2
+check("abc", caesar("abc", 1).equals("bcd"));
+check("wrap", caesar("xyz", 3).equals("abc"));
+check("other chars", caesar("a-B z!", 2).equals("c-B b!"));
+check("k zero", caesar("hello", 0).equals("hello"));
+=== java-h3
+check("tie", mostFrequent("abab") == 'a');
+check("clear", mostFrequent("zzza") == 'z');
+check("single", mostFrequent("q") == 'q');
+check("late tie", mostFrequent("zyzy") == 'y');
+=== java-x1
+Map<String, Integer> a = new HashMap<>(); a.put("x", 1000); a.put("y", 5);
+Map<String, Integer> b = new HashMap<>(); b.put("x", 1000); b.put("y", 5);
+check("large equal", sameCounts(a, b));
+Map<String, Integer> c = new HashMap<>(); c.put("x", 1000); c.put("y", 6);
+check("different", !sameCounts(a, c));
+Map<String, Integer> d = new HashMap<>(); d.put("x", 1000); d.put("z", 5);
+check("other key", !sameCounts(a, d));
+check("empty", sameCounts(new HashMap<>(), new HashMap<>()));
+=== java-x2
+check("value five", withoutValue(Arrays.asList(5, 1, 5), 5).equals(Arrays.asList(1)));
+check("value one", withoutValue(Arrays.asList(1, 0, 1), 1).equals(Arrays.asList(0)));
+check("absent", withoutValue(Arrays.asList(2, 3), 9).equals(Arrays.asList(2, 3)));
+List<Integer> orig = new ArrayList<>(Arrays.asList(4, 4));
+withoutValue(orig, 4);
+check("original untouched", orig.size() == 2);
+=== java-x3
+int[] r = bucketSizes(new String[]{"polygenelubricants", "a", "b", "c"}, 3);
+check("total", r[0] + r[1] + r[2] == 4);
+check("min hash bucket", bucketSizes(new String[]{"polygenelubricants"}, 3)[Math.floorMod(Integer.MIN_VALUE, 3)] == 1);
+check("simple", bucketSizes(new String[]{"a"}, 2)["a".hashCode() % 2] == 1);
+check("empty", bucketSizes(new String[]{}, 4).length == 4);

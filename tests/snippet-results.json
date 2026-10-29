@@ -1,0 +1,962 @@
+[
+  {
+    "id": "py-e1",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS mixed\nPASS empty\nPASS all odd\nPASS negatives",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 3,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL mixed got=4 want=6\nPASS empty\nFAIL all odd got=9 want=0\nFAIL negatives got=-3 want=6",
+      "err": ""
+    }
+  },
+  {
+    "id": "py-e2",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS hello\nPASS upper\nPASS none\nPASS empty",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 0,
+      "fail": 4,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL hello got='aeiou' want=2\nFAIL upper got='aeiou' want=5\nFAIL none got='aeiou' want=0\nFAIL empty got='aeiou' want=0",
+      "err": ""
+    }
+  },
+  {
+    "id": "py-e3",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS racecar\nPASS sentence\nPASS not\nPASS empty",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 0,
+      "fail": 0,
+      "exit": 1,
+      "timedOut": false,
+      "out": "",
+      "err": "Traceback (most recent call last): |   File \"/tmp/snip-neFj90/main.py\", line 15, in <module> |     check(\"racecar\", is_palindrome(\"racecar\"), True) |                      ^^^^^^^^^^^^^^^^^^^^^^^^"
+    }
+  },
+  {
+    "id": "py-m1",
+    "errs": [],
+    "fixed": {
+      "pass": 5,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS single\nPASS last\nPASS first\nPASS missing\nPASS empty",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 2,
+      "fail": 3,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL single got=-1 want=0\nFAIL last got=-1 want=3\nFAIL first got=-1 want=0\nPASS missing\nPASS empty",
+      "err": ""
+    }
+  },
+  {
+    "id": "py-m2",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS basic\nPASS k=1\nPASS whole\nPASS negatives",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 3,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL basic got=6 want=9\nFAIL k=1 got=3 want=7\nPASS whole\nFAIL negatives got=7 want=3",
+      "err": ""
+    }
+  },
+  {
+    "id": "py-m3",
+    "errs": [],
+    "fixed": {
+      "pass": 3,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS square\nPASS wide\nPASS tall",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 0,
+      "exit": 1,
+      "timedOut": false,
+      "out": "PASS square",
+      "err": "Traceback (most recent call last): |   File \"/tmp/snip-Lg1WeS/main.py\", line 15, in <module> |     check(\"wide\", transpose([[1, 2, 3], [4, 5, 6]]), [[1, 4], [2, 5], [3, 6]]) |                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+    }
+  },
+  {
+    "id": "py-h1",
+    "errs": [],
+    "fixed": {
+      "pass": 3,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS one hit\nPASS repeat\nPASS none",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 2,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL one hit got=[[0, 1], [0, 1]] want=[[0, 1], [0, 0]]\nFAIL repeat got=[[1, 0, 2], [1, 0, 2]] want=[[1, 0, 0], [0, 0, 2]]\nPASS none",
+      "err": ""
+    }
+  },
+  {
+    "id": "py-h2",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS count\nPASS f0\nPASS f1\nPASS f2",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 2,
+      "fail": 2,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS count\nFAIL f0 got=20 want=0\nFAIL f1 got=20 want=10\nPASS f2",
+      "err": ""
+    }
+  },
+  {
+    "id": "py-h3",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS nested\nPASS overlap\nPASS unsorted\nPASS empty",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 3,
+      "fail": 1,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL nested got=[[1, 3]] want=[[1, 10]]\nPASS overlap\nPASS unsorted\nPASS empty",
+      "err": ""
+    }
+  },
+  {
+    "id": "py-x1",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS basic\nPASS floats\nPASS empty\nPASS generator",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 3,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL basic got=0.0 want=2.0\nFAIL floats got=0.0 want=2.0\nPASS empty\nFAIL generator got=0.0 want=2.0",
+      "err": ""
+    }
+  },
+  {
+    "id": "py-x2",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS chain\nPASS diamond valid\nPASS cycle\nPASS isolated",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 2,
+      "fail": 2,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL chain got=None want=['a', 'b', 'c']\nFAIL diamond valid got=False want=True\nPASS cycle\nPASS isolated",
+      "err": ""
+    }
+  },
+  {
+    "id": "py-x3",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS full\nPASS from b\nPASS isolated\nPASS better later",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 3,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL full got={'a': 0, 'b': 1, 'c': 2, 'd': 1} want={'a': 0, 'b': 1, 'c': 3, 'd': 4}\nFAIL from b got={'b': 0, 'c': 2, 'd': 1} want={'b': 0, 'c': 2, 'd': 3}\nPASS isolated\nFAIL better later got={'s': 0, 't': 2, 'u': 1, 'v': 1} want={'s': 0, 't': 3, 'u': 1, 'v': 4}",
+      "err": ""
+    }
+  },
+  {
+    "id": "js-e1",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS basic\nPASS single\nPASS fraction\nPASS negatives",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 0,
+      "fail": 4,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL basic got=null want=2\nFAIL single got=null want=5\nFAIL fraction got=null want=1.5\nFAIL negatives got=null want=1",
+      "err": ""
+    }
+  },
+  {
+    "id": "js-e2",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS two words\nPASS rest kept\nPASS single\nPASS empty",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 3,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL two words got=\"Hhello Wworld\" want=\"Hello World\"\nFAIL rest kept got=\"IiPhone MmAX\" want=\"IPhone MAX\"\nFAIL single got=\"Aa\" want=\"A\"\nPASS empty",
+      "err": ""
+    }
+  },
+  {
+    "id": "js-e3",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS mixed types\nPASS strings\nPASS zero vs false\nPASS none",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 2,
+      "fail": 2,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL mixed types got=3 want=2\nPASS strings\nFAIL zero vs false got=3 want=1\nPASS none",
+      "err": ""
+    }
+  },
+  {
+    "id": "js-m1",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS multi-digit\nPASS even\nPASS single\nPASS unsorted big",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 2,
+      "fail": 2,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL multi-digit got=2 want=3\nPASS even\nPASS single\nFAIL unsorted big got=25 want=9",
+      "err": ""
+    }
+  },
+  {
+    "id": "js-m2",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS odd\nPASS even\nPASS words\nPASS empty",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 3,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL odd got=[5] want=[1,3,5]\nFAIL even got=[4] want=[2,4]\nFAIL words got={\"a\":[\"ape\"],\"b\":[\"bee\"]} want={\"a\":[\"ant\",\"ape\"],\"b\":[\"bee\"]}\nPASS empty",
+      "err": ""
+    }
+  },
+  {
+    "id": "js-m3",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS basic\nPASS skip\nPASS leading zero\nPASS empty",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 3,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL basic got=1 want=6\nFAIL skip got=10 want=15\nFAIL leading zero got=8 want=17\nPASS empty",
+      "err": ""
+    }
+  },
+  {
+    "id": "js-h1",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS count\nPASS c0\nPASS c1\nPASS c2",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 3,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS count\nFAIL c0 got=3 want=0\nFAIL c1 got=3 want=1\nFAIL c2 got=3 want=2",
+      "err": ""
+    }
+  },
+  {
+    "id": "js-h2",
+    "errs": [],
+    "fixed": {
+      "pass": 3,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS sum\nPASS repeat\nPASS empty",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 0,
+      "fail": 0,
+      "exit": 1,
+      "timedOut": false,
+      "out": "",
+      "err": "file:///tmp/snip-QZsKnb/main.mjs:4 |   for (const p of prices) { |                   ^ | "
+    }
+  },
+  {
+    "id": "js-h3",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS dupes\nPASS all same\nPASS unique\nPASS empty",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 2,
+      "fail": 2,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL dupes got=[{\"id\":1,\"v\":\"a\"},{\"id\":2,\"v\":\"b\"},{\"id\":1,\"v\":\"c\"}] want=[{\"id\":1,\"v\":\"a\"},{\"id\":2,\"v\":\"b\"}]\nFAIL all same got=3 want=1\nPASS unique\nPASS empty",
+      "err": ""
+    }
+  },
+  {
+    "id": "js-x1",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS order\nPASS ranks\nPASS ties stable\nPASS input untouched",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 3,
+      "fail": 1,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL order got=[\"a\",\"b\",\"c\",\"d\",\"e\"] want=[\"d\",\"e\",\"b\",\"c\",\"a\"]\nPASS ranks\nPASS ties stable\nPASS input untouched",
+      "err": ""
+    }
+  },
+  {
+    "id": "js-x2",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS two valid\nPASS mixed\nPASS repeat call\nPASS too long",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 2,
+      "fail": 2,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL two valid got=[\"alice\"] want=[\"alice\",\"bob_1\"]\nPASS mixed\nFAIL repeat call got=[\"sam\"] want=[\"sam\",\"sam\",\"sam\"]\nPASS too long",
+      "err": ""
+    }
+  },
+  {
+    "id": "js-x3",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS adjacent\nPASS same array\nPASS all\nPASS none",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 2,
+      "fail": 2,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL adjacent got=[1,2,3] want=[1,3]\nPASS same array\nFAIL all got=[4] want=[]\nPASS none",
+      "err": ""
+    }
+  },
+  {
+    "id": "java-e1",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS basic\nPASS single\nPASS empty\nPASS negatives",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 3,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL basic\nFAIL single\nPASS empty\nFAIL negatives",
+      "err": ""
+    }
+  },
+  {
+    "id": "java-e2",
+    "errs": [],
+    "fixed": {
+      "pass": 3,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS positives\nPASS all negative\nPASS single",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 2,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS positives\nFAIL all negative\nFAIL single",
+      "err": ""
+    }
+  },
+  {
+    "id": "java-e3",
+    "errs": [],
+    "fixed": {
+      "pass": 3,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS distinct objects\nPASS none\nPASS empty",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 2,
+      "fail": 1,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL distinct objects\nPASS none\nPASS empty",
+      "err": ""
+    }
+  },
+  {
+    "id": "java-m1",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS fraction\nPASS whole\nPASS thirds\nPASS negative",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 3,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL fraction\nPASS whole\nFAIL thirds\nFAIL negative",
+      "err": ""
+    }
+  },
+  {
+    "id": "java-m2",
+    "errs": [],
+    "fixed": {
+      "pass": 3,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS three\nPASS spaces\nPASS single",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 0,
+      "fail": 3,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL three\nFAIL spaces\nFAIL single",
+      "err": ""
+    }
+  },
+  {
+    "id": "java-m3",
+    "errs": [],
+    "fixed": {
+      "pass": 5,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS self pair\nPASS found\nPASS missing\nPASS dupes\nPASS empty",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 3,
+      "fail": 2,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL self pair\nPASS found\nFAIL missing\nPASS dupes\nPASS empty",
+      "err": ""
+    }
+  },
+  {
+    "id": "java-h1",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS zero\nPASS five\nPASS thirteen\nPASS twenty",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 2,
+      "fail": 2,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS zero\nPASS five\nFAIL thirteen\nFAIL twenty",
+      "err": ""
+    }
+  },
+  {
+    "id": "java-h2",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS abc\nPASS wrap\nPASS other chars\nPASS k zero",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 0,
+      "fail": 4,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL abc\nFAIL wrap\nFAIL other chars\nFAIL k zero",
+      "err": ""
+    }
+  },
+  {
+    "id": "java-h3",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS tie\nPASS clear\nPASS single\nPASS late tie",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 2,
+      "fail": 2,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL tie\nPASS clear\nPASS single\nFAIL late tie",
+      "err": ""
+    }
+  },
+  {
+    "id": "java-x1",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS large equal\nPASS different\nPASS other key\nPASS empty",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 3,
+      "fail": 1,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL large equal\nPASS different\nPASS other key\nPASS empty",
+      "err": ""
+    }
+  },
+  {
+    "id": "java-x2",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS value five\nPASS value one\nPASS absent\nPASS original untouched",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 0,
+      "fail": 0,
+      "exit": 1,
+      "timedOut": false,
+      "out": "",
+      "err": "Exception in thread \"main\" java.lang.IndexOutOfBoundsException: Index 5 out of bounds for length 3 | \tat java.base/jdk.internal.util.Preconditions.outOfBounds(Preconditions.java:100) | \tat java.base/jdk.internal.util.Preconditions.outOfBoundsCheckIndex(Preconditions.java:106) | \tat java.base/jdk.internal.util.Preconditions.checkIndex(Preconditions.java:302)"
+    }
+  },
+  {
+    "id": "java-x3",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS total\nPASS min hash bucket\nPASS simple\nPASS empty",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 0,
+      "fail": 0,
+      "exit": 1,
+      "timedOut": false,
+      "out": "",
+      "err": "Exception in thread \"main\" java.lang.ArrayIndexOutOfBoundsException: Index -2 out of bounds for length 3 | \tat Main.bucketSizes(Main.java:8) | \tat Main.main(Main.java:14) | "
+    }
+  },
+  {
+    "id": "c-e1",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS count\nPASS unchanged\nPASS none\nPASS empty",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 3,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL count\nFAIL unchanged\nFAIL none\nPASS empty",
+      "err": ""
+    }
+  },
+  {
+    "id": "c-e2",
+    "errs": [],
+    "fixed": {
+      "pass": 3,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS first is max\nPASS first of ties\nPASS single",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 2,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL first is max\nPASS first of ties\nFAIL single",
+      "err": ""
+    }
+  },
+  {
+    "id": "c-e3",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS 2^10\nPASS 3^2\nPASS x^0\nPASS 5^1",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 0,
+      "fail": 0,
+      "exit": 1,
+      "timedOut": false,
+      "out": "",
+      "err": "main.c:8:16: runtime error: signed integer overflow: 1000000000 * 10 cannot be represented in type 'int' | "
+    }
+  },
+  {
+    "id": "c-m1",
+    "errs": [],
+    "fixed": {
+      "pass": 3,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS odd\nPASS even\nPASS empty",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 2,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL odd\nFAIL even\nPASS empty",
+      "err": ""
+    }
+  },
+  {
+    "id": "c-m2",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS middle\nPASS first\nPASS missing\nPASS empty",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 3,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL middle\nFAIL first\nFAIL missing\nPASS empty",
+      "err": ""
+    }
+  },
+  {
+    "id": "c-m3",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS positive\nPASS negative\nPASS stops\nPASS zero",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 0,
+      "fail": 4,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL positive\nFAIL negative\nFAIL stops\nFAIL zero",
+      "err": ""
+    }
+  },
+  {
+    "id": "c-h1",
+    "errs": [],
+    "fixed": {
+      "pass": 3,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS truncated\nPASS guard intact\nPASS short",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 0,
+      "fail": 2,
+      "exit": 1,
+      "timedOut": false,
+      "out": "FAIL truncated\nFAIL guard intact",
+      "err": "================================================================= | ==2097==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x7f0353800048 at pc 0x559b43ec14c2 bp 0x7fff80804cf0 sp 0x7fff80804ce0 | WRITE of size 1 at 0x7f0353800048 thread T0 |     #0 0x559b43ec14c1 in copy_name (/tmp/snip-lKyh6l/prog+0x24c1) (BuildId: d88ec5c8632a3edde8c545be7f89f578ef45f262)"
+    }
+  },
+  {
+    "id": "c-h2",
+    "errs": [],
+    "fixed": {
+      "pass": 4,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS mask 6\nPASS mask 1\nPASS mask 2\nPASS mask 8",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 2,
+      "fail": 2,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS mask 6\nPASS mask 1\nFAIL mask 2\nFAIL mask 8",
+      "err": ""
+    }
+  },
+  {
+    "id": "c-h3",
+    "errs": [],
+    "fixed": {
+      "pass": 3,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS offset 1\nPASS offset 0\nPASS offset 2",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 0,
+      "fail": 3,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL offset 1\nFAIL offset 0\nFAIL offset 2",
+      "err": ""
+    }
+  },
+  {
+    "id": "c-x1",
+    "errs": [],
+    "fixed": {
+      "pass": 3,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS longest\nPASS empty list\nPASS empty word",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 2,
+      "exit": 0,
+      "timedOut": false,
+      "out": "FAIL longest\nPASS empty list\nFAIL empty word",
+      "err": ""
+    }
+  },
+  {
+    "id": "c-x2",
+    "errs": [],
+    "fixed": {
+      "pass": 3,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS not null\nPASS first\nPASS all",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 1,
+      "fail": 2,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS not null\nFAIL first\nFAIL all",
+      "err": ""
+    }
+  },
+  {
+    "id": "c-x3",
+    "errs": [],
+    "fixed": {
+      "pass": 3,
+      "fail": 0,
+      "exit": 0,
+      "timedOut": false,
+      "out": "PASS join\nPASS empty left\nPASS empty right",
+      "err": ""
+    },
+    "buggy": {
+      "pass": 0,
+      "fail": 0,
+      "exit": 1,
+      "timedOut": false,
+      "out": "",
+      "err": "================================================================= | ==2166==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x50200000001b at pc 0x7f22414fb303 bp 0x7ffc03077dc0 sp 0x7ffc03077568 | WRITE of size 6 at 0x50200000001b thread T0 |     #0 0x7f22414fb302 in memcpy ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors_memintrinsics.inc:115"
+    }
+  }
+]

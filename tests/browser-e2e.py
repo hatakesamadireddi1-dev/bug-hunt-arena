@@ -1,0 +1,70 @@
+import asyncio, time
+from playwright.async_api import async_playwright
+URL = "http://localhost:8888/"
+async def main():
+    async with async_playwright() as p:
+        b = await p.chromium.launch()
+        host = await (await b.new_context(viewport={"width": 1280, "height": 900})).new_page()
+        phone = await (await b.new_context(viewport={"width": 360, "height": 740}, device_scale_factor=2, has_touch=True, is_mobile=True)).new_page()
+        errors = []
+        for pg in (host, phone):
+            pg.on("pageerror", lambda e: errors.append(str(e)))
+            pg.on("console", lambda m: errors.append(m.text) if m.type == "error" else None)
+        await host.goto(URL); await phone.goto(URL)
+        await phone.screenshot(path="/tmp/shots/01-home-phone.png", full_page=True)
+        await host.fill("#cname", "Hosty")
+        await host.click("text=Mixed")
+        await host.click("text=Create room")
+        await host.wait_for_selector(".roomcode")
+        code = (await host.inner_text(".roomcode")).strip()
+        # Name taken error then success
+        await phone.fill("#jcode", code.lower()); await phone.fill("#jname", "hosty")
+        await phone.click("text=Join room")
+        await phone.wait_for_selector(".err:has-text('taken')")
+        print("name-taken msg:", await phone.inner_text(".err"))
+        await phone.fill("#jname", "Phone Pal")
+        await phone.click("text=Join room")
+        await phone.wait_for_selector(".roomcode")
+        await host.wait_for_selector("text=Phone Pal")
+        await phone.screenshot(path="/tmp/shots/02-lobby-phone.png", full_page=True)
+        # How to play from lobby
+        await phone.click("text=How to play"); await phone.wait_for_selector("text=Got it")
+        await phone.screenshot(path="/tmp/shots/03-howto-phone.png", full_page=True)
+        await phone.click("text=Got it")
+        await host.click("text=Start game")
+        await phone.wait_for_selector(".countdown .big")
+        await phone.screenshot(path="/tmp/shots/04-countdown-phone.png")
+        for rnd in range(1, 9):
+            await phone.wait_for_selector(".cl:not([disabled])", timeout=10000)
+            await host.wait_for_selector(".cl:not([disabled])", timeout=10000)
+            if rnd == 1: await phone.screenshot(path="/tmp/shots/05-playing-phone.png", full_page=True)
+            n = await phone.locator(".cl").count()
+            await phone.locator(".cl").nth(rnd % n).click()
+            if rnd == 1:
+                await phone.wait_for_selector("text=locked in")
+                await phone.screenshot(path="/tmp/shots/06-answered-phone.png", full_page=True)
+                # reconnect test: refresh mid-round
+                await phone.reload(); await phone.wait_for_selector("text=locked in", timeout=8000)
+                print("reload mid-round: rejoined OK")
+            await host.locator(".cl").nth((rnd + 2) % n).click()
+            await phone.wait_for_selector(".explain", timeout=8000)
+            if rnd == 1: await phone.screenshot(path="/tmp/shots/07-reveal-phone.png", full_page=True)
+            await phone.wait_for_selector(".board", timeout=12000)
+            if rnd == 1: await phone.screenshot(path="/tmp/shots/08-leaderboard-phone.png", full_page=True)
+            await host.wait_for_selector("button:has-text('Next round'), button:has-text('Show results')")
+            await host.click("button:has-text('Next round'), button:has-text('Show results')")
+            print("round", rnd, "done")
+        await phone.wait_for_selector("text=Final standings", timeout=10000)
+        await phone.screenshot(path="/tmp/shots/09-final-phone.png", full_page=True)
+        await phone.click("text=All solutions")
+        await phone.screenshot(path="/tmp/shots/10-all-solutions-phone.png")
+        await host.screenshot(path="/tmp/shots/11-final-host.png")
+        await host.click("text=Play again")
+        await phone.wait_for_selector(".countdown .big", timeout=8000)
+        print("play again -> countdown on phone OK")
+        # horizontal overflow check
+        ov = await phone.evaluate("document.documentElement.scrollWidth > window.innerWidth")
+        print("page horizontal overflow on 360px:", ov)
+        print("console errors:", errors)
+        await b.close()
+asyncio.run(main())

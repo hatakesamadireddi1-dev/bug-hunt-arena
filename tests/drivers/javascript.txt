@@ -1,0 +1,66 @@
+=== js-e1
+check("basic", average([1, 2, 3]), 2);
+check("single", average([5]), 5);
+check("fraction", average([1, 2]), 1.5);
+check("negatives", average([-4, 4, 3]), 1);
+=== js-e2
+check("two words", titleCase("hello world"), "Hello World");
+check("rest kept", titleCase("iPhone mAX"), "IPhone MAX");
+check("single", titleCase("a"), "A");
+check("empty", titleCase(""), "");
+=== js-e3
+check("mixed types", countOf([1, "1", 1], 1), 2);
+check("strings", countOf(["a", "b", "a"], "a"), 2);
+check("zero vs false", countOf([0, false, ""], 0), 1);
+check("none", countOf([], 3), 0);
+=== js-m1
+check("multi-digit", median([10, 2, 3]), 3);
+check("even", median([4, 1, 3, 2]), 2.5);
+check("single", median([7]), 7);
+check("unsorted big", median([100, 9, 25, 1, 5]), 9);
+=== js-m2
+const g = groupBy([1, 2, 3, 4, 5], (n) => (n % 2 ? "odd" : "even"));
+check("odd", g.odd, [1, 3, 5]);
+check("even", g.even, [2, 4]);
+check("words", groupBy(["ant", "bee", "ape"], (w) => w[0]), { a: ["ant", "ape"], b: ["bee"] });
+check("empty", groupBy([], (x) => x), {});
+=== js-m3
+check("basic", sumNumericStrings(["1", "2", "3"]), 6);
+check("skip", sumNumericStrings(["10", "abc", "5"]), 15);
+check("leading zero", sumNumericStrings(["08", "09"]), 17);
+check("empty", sumNumericStrings([]), 0);
+=== js-h1
+const cs = makeCounters(3);
+check("count", cs.length, 3);
+check("c0", cs[0](), 0);
+check("c1", cs[1](), 1);
+check("c2", cs[2](), 2);
+=== js-h2
+const prices = { a: 5, b: 7, c: 1 };
+const getPrice = (id) => new Promise((r) => setTimeout(() => r(prices[id]), 5));
+check("sum", await totalPrice(["a", "b", "c"], getPrice), 13);
+check("repeat", await totalPrice(["a", "a"], getPrice), 10);
+check("empty", await totalPrice([], getPrice), 0);
+=== js-h3
+check("dupes", uniqueById([{ id: 1, v: "a" }, { id: 2, v: "b" }, { id: 1, v: "c" }]), [{ id: 1, v: "a" }, { id: 2, v: "b" }]);
+check("all same", uniqueById([{ id: 9 }, { id: 9 }, { id: 9 }]).length, 1);
+check("unique", uniqueById([{ id: 1 }, { id: 2 }]).length, 2);
+check("empty", uniqueById([]), []);
+=== js-x1
+const ps = [{ name: "a", score: 10 }, { name: "b", score: 30 }, { name: "c", score: 20 }, { name: "d", score: 50 }, { name: "e", score: 40 }];
+check("order", rankPlayers(ps).map((p) => p.name), ["d", "e", "b", "c", "a"]);
+check("ranks", rankPlayers(ps).map((p) => p.rank), [1, 2, 3, 4, 5]);
+check("ties stable", rankPlayers([{ name: "x", score: 5 }, { name: "y", score: 5 }]).map((p) => p.name), ["x", "y"]);
+check("input untouched", ps[0].rank, undefined);
+=== js-x2
+check("two valid", filterValid(["alice", "bob_1"]), ["alice", "bob_1"]);
+check("mixed", filterValid(["ok_name", "No", "x", "valid99"]), ["ok_name", "valid99"]);
+check("repeat call", filterValid(["sam", "sam", "sam"]), ["sam", "sam", "sam"]);
+check("too long", filterValid(["a".repeat(17)]), []);
+=== js-x3
+const arr = [1, 2, 2, 3];
+const res = removeAll(arr, 2);
+check("adjacent", res, [1, 3]);
+check("same array", res === arr, true);
+check("all", removeAll([4, 4, 4], 4), []);
+check("none", removeAll([1, 2], 9), [1, 2]);

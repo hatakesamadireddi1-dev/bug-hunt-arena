@@ -1,0 +1,20 @@
+{
+  "name": "bug-hunt-arena",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Live multiplayer bug-spotting game for placement and interview prep.",
+  "scripts": {
+    "test": "npm run test:snippets && npm run test:game",
+    "test:game": "node --experimental-strip-types --no-warnings --test tests/engine.test.ts tests/handler.test.ts",
+    "test:snippets": "node tests/verify-snippets.mjs",
+    "snippets": "node scripts/build-snippets.mjs",
+    "dev": "node --experimental-strip-types --no-warnings tests/dev-server.ts 8888"
+  },
+  "dependencies": {
+    "@netlify/blobs": "10.7.13"
+  },
+  "engines": {
+    "node": ">=22.6"
+  }
+}

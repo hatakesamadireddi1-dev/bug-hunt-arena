@@ -1,0 +1,84 @@
+=== c-e1
+int a1[] = {1, 2, 1, 3};
+check("count", count_value(a1, 4, 1) == 2);
+check("unchanged", a1[1] == 2 && a1[3] == 3);
+int a2[] = {5, 6};
+check("none", count_value(a2, 2, 9) == 0);
+check("empty", count_value(a2, 0, 5) == 0);
+=== c-e2
+int a[] = {9, 1, 2};
+check("first is max", max_index(a, 3) == 0);
+int b[] = {1, 7, 7};
+check("first of ties", max_index(b, 3) == 1);
+int c[] = {4};
+check("single", max_index(c, 1) == 0);
+=== c-e3
+check("2^10", power(2, 10) == 1024);
+check("3^2", power(3, 2) == 9);
+check("x^0", power(7, 0) == 1);
+check("5^1", power(5, 1) == 5);
+=== c-m1
+char s1[] = "abc";
+reverse(s1);
+check("odd", strcmp(s1, "cba") == 0);
+char s2[] = "abcd";
+reverse(s2);
+check("even", strcmp(s2, "dcba") == 0);
+char s3[] = "";
+reverse(s3);
+check("empty", strcmp(s3, "") == 0);
+=== c-m2
+const char *ws[] = {"red", "green", "blue"};
+check("middle", find_word(ws, 3, "green") == 1);
+check("first", find_word(ws, 3, "red") == 0);
+check("missing", find_word(ws, 3, "pink") == -1);
+check("empty", find_word(ws, 0, "red") == -1);
+=== c-m3
+check("positive", parse_int("123") == 123);
+check("negative", parse_int("-45") == -45);
+check("stops", parse_int("7x9") == 7);
+check("zero", parse_int("0") == 0);
+=== c-h1
+struct { char buf[8]; char guard; } t;
+t.guard = 'G';
+copy_name(t.buf, "abcdefghij", 8);
+check("truncated", strcmp(t.buf, "abcdefg") == 0);
+check("guard intact", t.guard == 'G');
+char small[8];
+copy_name(small, "hi", 8);
+check("short", strcmp(small, "hi") == 0);
+=== c-h2
+unsigned f[] = {3, 6, 7, 2};
+check("mask 6", count_with_flag(f, 4, 6) == 2);
+check("mask 1", count_with_flag(f, 4, 1) == 2);
+check("mask 2", count_with_flag(f, 4, 2) == 4);
+check("mask 8", count_with_flag(f, 4, 8) == 0);
+=== c-h3
+int a[] = {3, 5};
+check("offset 1", sum_sq_offsets(a, 2, 1) == 20);
+int b[] = {2};
+check("offset 0", sum_sq_offsets(b, 1, 0) == 4);
+int c[] = {1, 4};
+check("offset 2", sum_sq_offsets(c, 2, 2) == 5);
+=== c-x1
+const char *ws[] = {"hi", "hello", "hey"};
+check("longest", longest_length(ws, 3) == 5);
+check("empty list", longest_length(ws, 0) == -1);
+const char *e[] = {""};
+check("empty word", longest_length(e, 1) == 0);
+=== c-x2
+int *a = ones(4);
+check("not null", a != NULL);
+check("first", a[0] == 1);
+check("all", a[0] + a[1] + a[2] + a[3] == 4);
+free(a);
+=== c-x3
+char *s = join_words("hello", "world");
+check("join", strcmp(s, "hello world") == 0);
+free(s);
+char *t = join_words("", "x");
+check("empty left", strcmp(t, " x") == 0);
+free(t);
+char *u = join_words("a", "");
+check("empty right", strcmp(u, "a ") == 0);
+free(u);

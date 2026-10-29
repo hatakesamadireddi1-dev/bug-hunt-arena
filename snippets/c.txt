@@ -1,0 +1,220 @@
+=== c-e1
+language: c
+difficulty: easy
+goal: Count how many of the first n ints equal target, without changing the array.
+bugLine: 5
+explanation: = assigns instead of comparing, so every element is overwritten and counted.
+fixed:         if (a[i] == target) {
+--- code
+int count_value(int *a, int n, int target) {
+    int count = 0;
+    int i = 0;
+    while (i < n) {
+        if (a[i] = target) {
+            count++;
+        }
+        i++;
+    }
+    return count;
+}
+--- end
+=== c-e2
+language: c
+difficulty: easy
+goal: Return the index of the first largest value in a non-empty array.
+bugLine: 2
+explanation: Starting at index 1 means element 0 is never considered.
+fixed:     int best = 0;
+--- code
+int max_index(const int *a, int n) {
+    int best = 1;
+    for (int i = 1; i < n; i++) {
+        if (a[i] > a[best]) {
+            best = i;
+        }
+    }
+    return best;
+}
+--- end
+=== c-e3
+language: c
+difficulty: easy
+goal: Return base raised to a non-negative power exp.
+bugLine: 4
+explanation: It multiplies by the exponent instead of the base.
+fixed:         result *= base;
+--- code
+int power(int base, int exp) {
+    int result = 1;
+    for (int i = 0; i < exp; i++) {
+        result *= exp;
+    }
+    return result;
+}
+--- end
+=== c-m1
+language: c
+difficulty: medium
+goal: Reverse a NUL-terminated string in place.
+bugLine: 2
+explanation: j starts on the terminating NUL, which gets swapped to the front and empties the string.
+fixed:     int j = (int)strlen(s) - 1;
+--- code
+void reverse(char *s) {
+    int j = (int)strlen(s);
+    int i = 0;
+    while (i < j) {
+        char tmp = s[i];
+        s[i] = s[j];
+        s[j] = tmp;
+        i++;
+        j--;
+    }
+}
+--- end
+=== c-m2
+language: c
+difficulty: medium
+goal: Return the index of the first word equal to target, or -1 if none matches.
+bugLine: 3
+explanation: strcmp returns 0 on a match, so this condition is true for every non-matching word.
+fixed:         if (strcmp(words[i], target) == 0) {
+--- code
+int find_word(const char *words[], int n, const char *target) {
+    for (int i = 0; i < n; i++) {
+        if (strcmp(words[i], target)) {
+            return i;
+        }
+    }
+    return -1;
+}
+--- end
+=== c-m3
+language: c
+difficulty: medium
+goal: Parse an optional '-' followed by decimal digits into an int (stops at the first non-digit).
+bugLine: 9
+explanation: It adds the character code instead of the digit value.
+fixed:         value = value * 10 + (*s - '0');
+--- code
+int parse_int(const char *s) {
+    int sign = 1;
+    int value = 0;
+    if (*s == '-') {
+        sign = -1;
+        s++;
+    }
+    while (*s >= '0' && *s <= '9') {
+        value = value * 10 + *s;
+        s++;
+    }
+    return sign * value;
+}
+--- end
+=== c-h1
+language: c
+difficulty: hard
+goal: Copy src into a buffer of cap bytes, truncating if needed and always NUL-terminating inside the buffer.
+bugLine: 6
+explanation: dst[cap] is one byte past the buffer; the last valid byte is dst[cap - 1].
+fixed:     dst[cap - 1] = '\0';
+--- code
+void copy_name(char *dst, const char *src, size_t cap) {
+    if (cap == 0) {
+        return;
+    }
+    strncpy(dst, src, cap);
+    dst[cap] = '\0';
+}
+--- end
+=== c-h2
+language: c
+difficulty: hard
+goal: Count the entries that have every bit of mask set.
+bugLine: 4
+explanation: == binds tighter than &, so this tests flags[i] & 1 instead of the whole mask.
+fixed:         if ((flags[i] & mask) == mask) {
+--- code
+int count_with_flag(const unsigned *flags, int n, unsigned mask) {
+    int count = 0;
+    for (int i = 0; i < n; i++) {
+        if (flags[i] & mask == mask) {
+            count++;
+        }
+    }
+    return count;
+}
+--- end
+=== c-h3
+language: c
+difficulty: hard
+goal: Return the sum of (a[i] - offset) squared over the array.
+bugLine: 1
+explanation: Without parentheses the macro expands to a - offset * a - offset.
+fixed: #define SQUARE(x) ((x) * (x))
+--- code
+#define SQUARE(x) x * x
+int sum_sq_offsets(const int *a, int n, int offset) {
+    int total = 0;
+    for (int i = 0; i < n; i++) {
+        total += SQUARE(a[i] - offset);
+    }
+    return total;
+}
+--- end
+=== c-x1
+language: c
+difficulty: expert
+goal: Return the length of the longest word, or -1 if n is 0.
+bugLine: 4
+explanation: best is converted to size_t for the comparison, so -1 becomes huge and nothing is ever larger.
+fixed:         if ((int)strlen(words[i]) > best) {
+--- code
+int longest_length(const char *words[], int n) {
+    int best = -1;
+    for (int i = 0; i < n; i++) {
+        if (strlen(words[i]) > best) {
+            best = (int)strlen(words[i]);
+        }
+    }
+    return best;
+}
+--- end
+=== c-x2
+language: c
+difficulty: expert
+goal: Return a newly allocated array of n ints, every one equal to 1 (NULL if allocation fails).
+bugLine: 6
+explanation: memset sets bytes, so each int becomes 0x01010101 instead of 1.
+fixed:     for (int i = 0; i < n; i++) a[i] = 1;
+--- code
+int *ones(int n) {
+    int *a = malloc(n * sizeof(int));
+    if (a == NULL) {
+        return NULL;
+    }
+    memset(a, 1, n * sizeof(int));
+    return a;
+}
+--- end
+=== c-x3
+language: c
+difficulty: expert
+goal: Return a newly allocated string "a b" (a, one space, b), or NULL if allocation fails.
+bugLine: 4
+explanation: The buffer has no room for the space, so the final NUL is written past the end.
+fixed:     char *out = malloc(la + lb + 2);
+--- code
+char *join_words(const char *a, const char *b) {
+    size_t la = strlen(a);
+    size_t lb = strlen(b);
+    char *out = malloc(la + lb + 1);
+    if (out == NULL) {
+        return NULL;
+    }
+    memcpy(out, a, la);
+    out[la] = ' ';
+    memcpy(out + la + 1, b, lb + 1);
+    return out;
+}
+--- end

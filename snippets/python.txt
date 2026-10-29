@@ -1,0 +1,212 @@
+=== py-e1
+language: python
+difficulty: easy
+goal: Return the sum of the even numbers in a list.
+bugLine: 4
+explanation: The condition selects odd numbers instead of even ones.
+fixed:         if n % 2 == 0:
+--- code
+def sum_evens(nums):
+    total = 0
+    for n in nums:
+        if n % 2 == 1:
+            total += n
+    return total
+--- end
+=== py-e2
+language: python
+difficulty: easy
+goal: Count the vowels in a string, case-insensitively.
+bugLine: 7
+explanation: It returns the vowel string instead of the count.
+fixed:     return count
+--- code
+def count_vowels(text):
+    vowels = "aeiou"
+    count = 0
+    for ch in text.lower():
+        if ch in vowels:
+            count += 1
+    return vowels
+--- end
+=== py-e3
+language: python
+difficulty: easy
+goal: Check whether a string is a palindrome, ignoring case and non-alphanumeric characters.
+bugLine: 3
+explanation: right starts one past the last index, so any non-empty input raises IndexError.
+fixed:     left, right = 0, len(cleaned) - 1
+--- code
+def is_palindrome(s):
+    cleaned = [c.lower() for c in s if c.isalnum()]
+    left, right = 0, len(cleaned)
+    while left < right:
+        if cleaned[left] != cleaned[right]:
+            return False
+        left += 1
+        right -= 1
+    return True
+--- end
+=== py-m1
+language: python
+difficulty: medium
+goal: Return the index of target in a sorted list, or -1 if it is absent.
+bugLine: 3
+explanation: The loop exits when lo == hi without checking that last element, so [5] with target 5 returns -1.
+fixed:     while lo <= hi:
+--- code
+def binary_search(arr, target):
+    lo, hi = 0, len(arr) - 1
+    while lo < hi:
+        mid = (lo + hi) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    return -1
+--- end
+=== py-m2
+language: python
+difficulty: medium
+goal: Return the maximum sum of any k consecutive elements (assumes 1 <= k <= len(nums)).
+bugLine: 5
+explanation: It subtracts the wrong element; the one leaving the window is nums[i - k].
+fixed:         window += nums[i] - nums[i - k]
+--- code
+def max_window_sum(nums, k):
+    window = sum(nums[:k])
+    best = window
+    for i in range(k, len(nums)):
+        window += nums[i] - nums[i - k + 1]
+        best = max(best, window)
+    return best
+--- end
+=== py-m3
+language: python
+difficulty: medium
+goal: Return the transpose of a non-empty rectangular matrix.
+bugLine: 7
+explanation: The indices are swapped on both sides, which only works for square matrices.
+fixed:             result[c][r] = matrix[r][c]
+--- code
+def transpose(matrix):
+    rows = len(matrix)
+    cols = len(matrix[0])
+    result = [[0] * rows for _ in range(cols)]
+    for r in range(rows):
+        for c in range(cols):
+            result[r][c] = matrix[c][r]
+    return result
+--- end
+=== py-h1
+language: python
+difficulty: hard
+goal: Build a rows x cols grid counting how many times each (r, c) point appears.
+bugLine: 2
+explanation: List multiplication makes every row the same list object, so each hit appears in every row.
+fixed:     grid = [[0] * cols for _ in range(rows)]
+--- code
+def hit_counts(rows, cols, points):
+    grid = [[0] * cols] * rows
+    for r, c in points:
+        grid[r][c] += 1
+    return grid
+--- end
+=== py-h2
+language: python
+difficulty: hard
+goal: Return n functions where the i-th one multiplies its argument by i.
+bugLine: 4
+explanation: All the lambdas share the late-bound i, so every one multiplies by n - 1.
+fixed:         funcs.append(lambda x, i=i: x * i)
+--- code
+def make_multipliers(n):
+    funcs = []
+    for i in range(n):
+        funcs.append(lambda x: x * i)
+    return funcs
+--- end
+=== py-h3
+language: python
+difficulty: hard
+goal: Merge overlapping [start, end] intervals.
+bugLine: 9
+explanation: A nested interval shrinks the merge, so [[1,10],[2,3]] gives [[1,3]].
+fixed:             last[1] = max(last[1], end)
+--- code
+def merge_intervals(intervals):
+    if not intervals:
+        return []
+    intervals = sorted(intervals)
+    merged = [list(intervals[0])]
+    for start, end in intervals[1:]:
+        last = merged[-1]
+        if start <= last[1]:
+            last[1] = end
+        else:
+            merged.append([start, end])
+    return merged
+--- end
+=== py-x1
+language: python
+difficulty: expert
+goal: Return the mean of an iterable of numeric strings, or 0.0 if it is empty.
+bugLine: 2
+explanation: The generator is exhausted by the first sum, so count is always 0 and the result is always 0.0.
+fixed:     nums = [float(v) for v in values]
+--- code
+def mean(values):
+    nums = (float(v) for v in values)
+    total = sum(nums)
+    count = sum(1 for _ in nums)
+    return total / count if count else 0.0
+--- end
+=== py-x2
+language: python
+difficulty: expert
+goal: Topologically sort a DAG given as {node: [successors]} (every node is a key); return None if there is a cycle.
+bugLine: 13
+explanation: Nodes are released while a prerequisite is still pending, and nodes that reach 0 are never released.
+fixed:             if indegree[nxt] == 0:
+--- code
+def topo_sort(graph):
+    indegree = {node: 0 for node in graph}
+    for node in graph:
+        for nxt in graph[node]:
+            indegree[nxt] += 1
+    stack = [n for n in graph if indegree[n] == 0]
+    order = []
+    while stack:
+        node = stack.pop()
+        order.append(node)
+        for nxt in graph[node]:
+            indegree[nxt] -= 1
+            if indegree[nxt] == 1:
+                stack.append(nxt)
+    return order if len(order) == len(graph) else None
+--- end
+=== py-x3
+language: python
+difficulty: expert
+goal: Compute shortest distances from src with Dijkstra ({node: [(neighbor, weight)]}, non-negative weights, every node a key, comparable labels).
+bugLine: 13
+explanation: It pushes the current node's distance instead of the neighbor's new distance, so later relaxations come out too small.
+fixed:                 heapq.heappush(heap, (nd, nxt))
+--- code
+import heapq
+def dijkstra(graph, src):
+    dist = {src: 0}
+    heap = [(0, src)]
+    while heap:
+        d, node = heapq.heappop(heap)
+        if d > dist[node]:
+            continue
+        for nxt, w in graph[node]:
+            nd = d + w
+            if nd < dist.get(nxt, float("inf")):
+                dist[nxt] = nd
+                heapq.heappush(heap, (d, nxt))
+    return dist
+--- end

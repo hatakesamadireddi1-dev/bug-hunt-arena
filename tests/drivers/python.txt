@@ -1,0 +1,65 @@
+=== py-e1
+check("mixed", sum_evens([1, 2, 3, 4]), 6)
+check("empty", sum_evens([]), 0)
+check("all odd", sum_evens([1, 3, 5]), 0)
+check("negatives", sum_evens([-2, -3, 8]), 6)
+=== py-e2
+check("hello", count_vowels("hello"), 2)
+check("upper", count_vowels("AEIOU"), 5)
+check("none", count_vowels("rhythm"), 0)
+check("empty", count_vowels(""), 0)
+=== py-e3
+check("racecar", is_palindrome("racecar"), True)
+check("sentence", is_palindrome("A man, a plan, a canal: Panama"), True)
+check("not", is_palindrome("hello"), False)
+check("empty", is_palindrome(""), True)
+=== py-m1
+check("single", binary_search([5], 5), 0)
+check("last", binary_search([1, 3, 5, 7], 7), 3)
+check("first", binary_search([1, 3, 5, 7], 1), 0)
+check("missing", binary_search([1, 3, 5, 7], 4), -1)
+check("empty", binary_search([], 1), -1)
+=== py-m2
+check("basic", max_window_sum([1, 2, 3, 4, 5], 2), 9)
+check("k=1", max_window_sum([3, -1, 7], 1), 7)
+check("whole", max_window_sum([2, 2, 2], 3), 6)
+check("negatives", max_window_sum([5, -10, 1, 2], 2), 3)
+=== py-m3
+check("square", transpose([[1, 2], [3, 4]]), [[1, 3], [2, 4]])
+check("wide", transpose([[1, 2, 3], [4, 5, 6]]), [[1, 4], [2, 5], [3, 6]])
+check("tall", transpose([[1], [2], [3]]), [[1, 2, 3]])
+=== py-h1
+check("one hit", hit_counts(2, 2, [(0, 1)]), [[0, 1], [0, 0]])
+check("repeat", hit_counts(2, 3, [(1, 2), (1, 2), (0, 0)]), [[1, 0, 0], [0, 0, 2]])
+check("none", hit_counts(1, 2, []), [[0, 0]])
+=== py-h2
+fs = make_multipliers(3)
+check("count", len(fs), 3)
+check("f0", fs[0](10), 0)
+check("f1", fs[1](10), 10)
+check("f2", fs[2](10), 20)
+=== py-h3
+check("nested", merge_intervals([[1, 10], [2, 3]]), [[1, 10]])
+check("overlap", merge_intervals([[1, 3], [2, 6], [8, 10]]), [[1, 6], [8, 10]])
+check("unsorted", merge_intervals([[5, 6], [1, 2]]), [[1, 2], [5, 6]])
+check("empty", merge_intervals([]), [])
+=== py-x1
+check("basic", mean(["1", "2", "3"]), 2.0)
+check("floats", mean(["1.5", "2.5"]), 2.0)
+check("empty", mean([]), 0.0)
+check("generator", mean(str(i) for i in range(5)), 2.0)
+=== py-x2
+g1 = {"a": ["b"], "b": ["c"], "c": []}
+check("chain", topo_sort(g1), ["a", "b", "c"])
+g2 = {"a": ["c"], "b": ["c"], "c": ["d"], "d": []}
+o2 = topo_sort(g2)
+check("diamond valid", o2 is not None and len(o2) == 4 and o2.index("c") > o2.index("a") and o2.index("c") > o2.index("b") and o2.index("d") > o2.index("c"), True)
+check("cycle", topo_sort({"a": ["b"], "b": ["a"]}), None)
+check("isolated", sorted(topo_sort({"x": [], "y": []})), ["x", "y"])
+=== py-x3
+g = {"a": [("b", 1), ("c", 4)], "b": [("c", 2), ("d", 5)], "c": [("d", 1)], "d": []}
+check("full", dijkstra(g, "a"), {"a": 0, "b": 1, "c": 3, "d": 4})
+check("from b", dijkstra(g, "b"), {"b": 0, "c": 2, "d": 3})
+check("isolated", dijkstra({"a": []}, "a"), {"a": 0})
+g2 = {"s": [("t", 10), ("u", 1)], "u": [("t", 2)], "t": [("v", 1)], "v": []}
+check("better later", dijkstra(g2, "s"), {"s": 0, "t": 3, "u": 1, "v": 4})
